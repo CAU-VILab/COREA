@@ -781,6 +781,25 @@
             For those in red, splitting matrices from image and normal losses are combined into the total matrix S<sub>total</sub>.
             Only those with &lambda;<sub>min</sub>(S<sub>total</sub>) &lt; 0 are further divided into green Gaussians, exclusively when it contributes to overall loss reduction.
           </p>
+
+          <!-- 🔽 추가: DDC Ablation Study 블록 -->
+          <div style="margin-top:18px;">
+            <h3 style="margin:0 0 10px;font-size:18px;">DDC Ablation Study</h3>
+
+            <figure class="abstract-figure">
+              <div class="thumb thumb--fit">
+                <!-- 필요하면 나중에 DDC_ablation.png 같은 파일명으로만 교체하면 됨 -->
+                <img src="./assets/DDC_ablation.png" alt="Ablation study for Dual-Density Control" />
+              </div>
+            </figure>
+
+            <p class="framework-ddc-text">
+              Effect of the DDC weight $\alpha$ on reconstruction quality and splitting dynamics. 
+              The bar plots show the PSNR for NVS and PBR, while the line plot indicates the cosine similarity between the principal eigenvectors of $S_{\text{image}}$ and $S_{\text{total}}$. 
+              The normalized Gaussian ratio (relative to $\alpha{=}0$) visualizes how the amount of  splitting varies with $\alpha$. As $\alpha$ increases, the cosine similarity drops sharply after $\alpha{\ge}0.5$, suggesting a shift from image-driven to normal-driven splitting. 
+              PBR PSNR peaks at $\alpha{=}0.2$, providing the best balance between geometric fidelity and Gaussian efficiency.
+            </p>
+          </div>
         </div>
       </section>
 
