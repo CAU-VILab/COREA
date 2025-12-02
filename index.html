@@ -1011,23 +1011,30 @@
       function update(e){
         const rect = thumb.getBoundingClientRect();
         const lx = LENS / 2;
-
+      
+        // 마우스 위치 (이미지 좌표)
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
-
-        x = clamp(x, lx, rect.width - lx);
-        y = clamp(y, lx, rect.height - lx);
-
+      
+        // 1) 확대에 쓸 좌표: 이미지 전체를 커버하도록 0~width 로만 clamp
+        const xImage = clamp(x, 0, rect.width);
+        const yImage = clamp(y, 0, rect.height);
+      
+        // 2) 렌즈 위치에 쓸 좌표: 렌즈가 박스 밖으로 나가지 않게 기존처럼 clamp
+        const xLens = clamp(x, lx, rect.width - lx);
+        const yLens = clamp(y, lx, rect.height - lx);
+      
         const l = ensureLens();
-        l.style.left = `${x}px`;
-        l.style.top  = `${y}px`;
-
+        l.style.left = `${xLens}px`;
+        l.style.top  = `${yLens}px`;
+      
         const bgW = rect.width * ZOOM;
         const bgH = rect.height * ZOOM;
         l.style.backgroundSize = `${bgW}px ${bgH}px`;
-
-        const bgX = -(x * ZOOM - lx);
-        const bgY = -(y * ZOOM - lx);
+      
+        // 배경 위치는 xImage / yImage 기준으로 계산
+        const bgX = -(xImage * ZOOM - lx);
+        const bgY = -(yImage * ZOOM - lx);
         l.style.backgroundPosition = `${bgX}px ${bgY}px`;
       }
 
