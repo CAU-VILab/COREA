@@ -531,6 +531,36 @@
         grid-template-columns:1fr;
       }
     }
+
+    /* DDC 레이아웃: 그림은 떠 있고, 텍스트가 감싸도록 */
+    #framework-extra .ddc-figure-left{
+      float:left;
+      width: min(40%, 360px);
+      margin:0 18px 10px 0;
+    }
+    #framework-extra .ddc-figure-right{
+      float:right;
+      width: min(52%, 460px);
+      margin:0 0 10px 18px;
+    }
+
+    /* 모바일에서는 float 풀고 세로 배치 */
+    @media (max-width: 900px){
+      #framework-extra .ddc-figure-left,
+      #framework-extra .ddc-figure-right{
+        float:none;
+        width:100%;
+        margin:0 0 10px 0;
+      }
+    }
+
+    /* 카드 맨 끝에서 float 정리 */
+    #framework-extra::after{
+      content:"";
+      display:block;
+      clear:both;
+    }
+
     
     .framework-ddc-text{
       margin-top: 8px;
@@ -814,37 +844,37 @@
 
         <!-- Framework detail: DDC image + text -->
         <div class="subcard" id="framework-extra">
-          <div class="ddc-layout">
-            <div class="ddc-col">
-              <h3 style="margin:0 0 10px;font-size:18px;">Dual-Density Control (DDC)</h3>
-              <figure class="abstract-figure">
-                <div class="thumb thumb--fit">
-                  <img src="./assets/DDC.png" alt="Detailed view of Dual-Density Control module" />
-                </div>
-              </figure>
-            </div>
-
-            <div class="ddc-col">
-              <h3 style="margin:0 0 10px;font-size:18px;">DDC ablation study</h3>
-              <figure class="abstract-figure">
-                <div class="thumb thumb--fit">
-                  <img src="./assets/DDC_ablation.png" alt="Ablation study for Dual-Density Control" />
-                </div>
-              </figure>
-            </div>
+          <!-- 왼쪽: DDC 다이어그램 (float left) -->
+          <div class="ddc-figure-left">
+            <h3 style="margin:0 0 10px;font-size:18px;">Dual-Density Control (DDC)</h3>
+            <figure class="abstract-figure" style="margin:0;">
+              <div class="thumb thumb--fit">
+                <img src="./assets/DDC.png" alt="Detailed view of Dual-Density Control module" />
+              </div>
+            </figure>
           </div>
 
-          <!-- 아래는 두 그림 공통 설명: 카드 전체 폭으로 -->
+          <!-- 오른쪽: DDC ablation (float right) -->
+          <div class="ddc-figure-right">
+            <h3 style="margin:0 0 10px;font-size:18px;">DDC ablation study</h3>
+            <figure class="abstract-figure" style="margin:0;">
+              <div class="thumb thumb--fit">
+                <img src="./assets/DDC_ablation.png" alt="Ablation study for Dual-Density Control" />
+              </div>
+            </figure>
+          </div>
+
+          <!-- 아래 텍스트는 두 그림을 감싸면서 흐름 -->
           <p class="framework-ddc-text">
-            Gaussians with accumulated gradients exceeding the threshold are shown in red, while others remain blue, 
-            and for those in red the splitting matrices from image and normal losses are combined into the total matrix 
-            S<sub>total</sub>. Only Gaussians with &lambda;<sub>min</sub>(S<sub>total</sub>) &lt; 0 are further divided into green 
-            components, exclusively when this splitting contributes to overall loss reduction, and the normalized Gaussian ratio 
-            (relative to &alpha; = 0) visualizes how the amount of splitting varies with the DDC weight &alpha;. 
-            The bar plots show the PSNR for NVS and PBR, while the line plot indicates the cosine similarity between the principal 
-            eigenvectors of <i>S</i><sub>image</sub> and S<sub>total</sub>, where the similarity drops sharply after &alpha; &ge; 0.5 
-            (indicating a shift from image-driven to normal-driven splitting) and the PBR PSNR peaks at &alpha; = 0.2, providing 
-            the best balance between geometric fidelity and Gaussian efficiency.
+            Gaussians with accumulated gradients exceeding the threshold are shown in red, while others remain blue, and for those in red 
+            the splitting matrices from image and normal losses are combined into the total matrix S<sub>total</sub>.
+            Only Gaussians with &lambda;<sub>min</sub>(S<sub>total</sub>) &lt; 0 are further divided into green components, exclusively when 
+            this splitting contributes to overall loss reduction, and the normalized Gaussian ratio (relative to &alpha; = 0) visualizes how 
+            the amount of splitting varies with the DDC weight &alpha;.
+            The bar plots show the PSNR for NVS and PBR, while the line plot indicates the cosine similarity between the principal eigenvectors 
+            of <i>S</i><sub>image</sub> and S<sub>total</sub>, where the similarity drops sharply after &alpha; &ge; 0.5 (indicating a shift from 
+            image-driven to normal-driven splitting) and the PBR PSNR peaks at &alpha; = 0.2, providing the best balance between geometric fidelity 
+            and Gaussian efficiency.
           </p>
         </div>
       </section>
