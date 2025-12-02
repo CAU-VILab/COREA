@@ -520,27 +520,15 @@
       transform: translateY(-1px);
     }
 
-    #framework-extra .ddc-layout{
-      display:grid;
-      grid-template-columns: minmax(0,1.1fr) minmax(0,1.3fr);
-      gap:18px;
-      align-items:flex-start;
-    }
-    @media (max-width:900px){
-      #framework-extra .ddc-layout{
-        grid-template-columns:1fr;
-      }
-    }
-
-    /* DDC 레이아웃: 그림은 떠 있고, 텍스트가 감싸도록 */
+    /* DDC 레이아웃: 그림은 양옆, 텍스트가 두 이미지를 감싸도록 */
     #framework-extra .ddc-figure-left{
       float:left;
-      width: min(40%, 360px);
+      width: min(48%, 420px);  /* 왼쪽 DDC 이미지 더 크게 */
       margin:0 18px 10px 0;
     }
     #framework-extra .ddc-figure-right{
       float:right;
-      width: min(52%, 460px);
+      width: min(40%, 360px);  /* 오른쪽 ablation 조금 줄임 */
       margin:0 0 10px 18px;
     }
 
@@ -561,30 +549,11 @@
       clear:both;
     }
 
-    
     .framework-ddc-text{
       margin-top: 8px;
       font-size: 15.5px;
       color: var(--text);
       line-height: 1.6;
-    }
-
-        /* Framework: DDC + Ablation 2-column layout */
-    .framework-grid{
-      display:flex;
-      gap:18px;
-      align-items:flex-start;
-      flex-wrap:wrap;
-    }
-    .framework-col{
-      flex:1 1 0;
-      min-width:0;
-    }
-
-    @media (max-width: 860px){
-      .framework-grid{
-        flex-direction:column;
-      }
     }
 
     /* Qualitative stack */
