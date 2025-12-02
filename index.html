@@ -469,7 +469,14 @@
     .abstract-card{padding:22px}
     .abstract-figure{margin:0 0 14px}
     .figure-cap{margin-top:8px;color:var(--muted);font-size:14px}
-    .blurb{ margin:8px 0 0; color:var(--muted); font-size:14px; line-height:1.55; }
+    
+    /* ✏️ 여기 부분만 이렇게 수정 */
+    .blurb{
+      margin:8px 0 0;
+      color:var(--text);        /* framework-ddc-text와 동일한 색 */
+      font-size:15.5px;         /* 동일 폰트 크기 */
+      line-height:1.6;          /* 동일 line-height */
+    }    
     .abstract-text{font-size:15.5px}
 
     /* Subcards */
