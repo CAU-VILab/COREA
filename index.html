@@ -402,7 +402,7 @@
       border-radius:14px;
       overflow:hidden;
       border:1px solid rgba(0,86,162,.18);
-      background:#ffffff;
+      background:#ffffff;          /* ⚪ 흰 박스는 이미지 컨테이너만 */
       transform: translateZ(0);
       backface-visibility: hidden;
       -webkit-mask-image: -webkit-radial-gradient(white, black);
@@ -474,7 +474,7 @@
 
     /* Subcards */
     .subcard{
-      background:#ffffff;
+      background:var(--card);             /* ✅ 이제 전체가 회색 카드 */
       border:1px solid rgba(0,86,162,.16);
       border-radius:14px;
       padding:18px;
