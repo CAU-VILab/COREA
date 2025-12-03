@@ -539,9 +539,17 @@
     }
 
     /* 오른쪽: 텍스트 컬럼 = 나머지 공간 */
+    /* #framework-extra .ddc-col-text{ */
+      /* flex: 1 1 0; */
+      /* max-width: 50%; */
+    /* } */
+    
+    /* 오른쪽: 텍스트 컬럼 = 나머지 공간 */
     #framework-extra .ddc-col-text{
       flex: 1 1 0;
       max-width: 50%;
+      display: flex;          /* 추가 */
+      align-items: flex-start;/* 추가: 안의 내용(문단)을 위에 붙이기 */
     }
 
     /* 이 카드 안에서는 thumb 를 왼쪽 정렬 + 크게 */
@@ -553,13 +561,20 @@
       height: auto;
     }
 
+    /* .framework-ddc-text{ */
+      /* margin: 0; */
+      /* font-size: 15.5px; */
+      /* color: var(--text); */
+      /* line-height: 1.6; */
+    /* } */
+
     .framework-ddc-text{
-      margin: 0;
+      margin: 0;              /* 이미 있으면 그대로 두면 됨 */
       font-size: 15.5px;
       color: var(--text);
       line-height: 1.6;
     }
-
+    
     /* 모바일에서는 세로 스택 */
     @media (max-width: 900px){
       #framework-extra .ddc-row{
@@ -843,7 +858,7 @@
             <div class="ddc-col ddc-col-text">
               <p class="framework-ddc-text">
                 In the Dual-Density Control framework, Gaussians with accumulated gradients exceeding the threshold are shown in red, while others remain blue. 
-                <!-- For those in red, splitting matrices from image and normal losses are combined into the total matrix S<sub>total</sub>.  -->
+                For those in red, splitting matrices from image and normal losses are combined into the total matrix S<sub>total</sub>. 
                 Only those with &lambda;<sub>min</sub>(S<sub>total</sub>) &lt; 0 are further divided into green Gaussians, exclusively when it contributes to overall loss reduction.
               </p>
             </div>
