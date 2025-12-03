@@ -502,7 +502,7 @@
       box-shadow: 0 14px 30px rgba(0,0,0,0.08), var(--glow-md);
       transform: translateY(-1px);
     }
-
+    
     /* DDC card: turn off neon + use framework text style */
     #framework-extra{
       box-shadow: 0 10px 22px rgba(0,0,0,0.06);   /* no neon glow */
@@ -519,48 +519,34 @@
       box-shadow: 0 14px 30px rgba(0,0,0,0.10);
       transform: translateY(-1px);
     }
-
-    /* ===== DDC 레이아웃: 이미지 왼쪽 + 텍스트 오른쪽 ===== */
+    
+    /* ===== DDC 레이아웃: 왼쪽 이미지 1/2 + 오른쪽 텍스트 1/2 ===== */
     #framework-extra .ddc-row{
       display: flex;
-      align-items: flex-start;
+      align-items: flex-start;   /* 행 전체를 위쪽 정렬 */
       gap: 18px;
-      margin-bottom: 4px;
+      margin-bottom: 0;
     }
-
+    
     #framework-extra .ddc-col{
       margin: 0;
     }
-
+    
     /* 왼쪽: 이미지 컬럼 = 반 너비 */
     #framework-extra .ddc-col-img{
       flex: 0 0 50%;
       max-width: 50%;
     }
-
-    /* 오른쪽: 텍스트 컬럼 = 나머지 공간 */
-    /* #framework-extra .ddc-col-text{ */
-      /* flex: 1 1 0; */
-      /* max-width: 50%; */
-    /* } */
     
     /* 오른쪽: 텍스트 컬럼 = 나머지 공간 */
     #framework-extra .ddc-col-text{
       flex: 1 1 0;
       max-width: 50%;
-      display: flex;          /* 텍스트 블록을 직접 위로 붙이기 */
-      align-items: flex-start;
+      display: flex;
+      align-items: flex-start;   /* 텍스트 박스도 위에 딱 붙이기 */
     }
     
-    /* 텍스트만 살짝 위로 당기기 */
-    #framework-extra .framework-ddc-text{
-      margin: -6px 0 0 0;     /* 위쪽 여백만 -6px 정도로 줄이기 */
-      font-size: 15.5px;
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    /* 이 카드 안에서는 thumb 를 왼쪽 정렬 + 크게 */
+    /* 이 카드 안에서는 thumb 를 왼쪽 정렬 + 조금 더 크게 */
     #framework-extra .thumb.thumb--fit{
       justify-content: flex-start;
     }
@@ -568,22 +554,16 @@
       width: 100%;
       height: auto;
     }
-
-    /* .framework-ddc-text{ */
-      /* margin: 0; */
-      /* font-size: 15.5px; */
-      /* color: var(--text); */
-      /* line-height: 1.6; */
-    /* } */
-
-    .framework-ddc-text{
-      margin: 0;              /* 이미 있으면 그대로 두면 됨 */
+    
+    /* 텍스트: 위 여백을 카드 패딩에 딱 붙게 */
+    #framework-extra .ddc-col-text .framework-ddc-text{
+      margin: 0;                 /* 위쪽 여백 제거, 박스 상단에 딱 붙음 */
       font-size: 15.5px;
       color: var(--text);
       line-height: 1.6;
     }
     
-    /* 모바일에서는 세로 스택 */
+    /* 모바일에서는 세로로 쌓이게 */
     @media (max-width: 900px){
       #framework-extra .ddc-row{
         flex-direction: column;
@@ -593,6 +573,7 @@
         max-width: 100%;
       }
     }
+
 
     /* Qualitative stack */
     .media-stack{display:flex;flex-direction:column;gap:16px}
