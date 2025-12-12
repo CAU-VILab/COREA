@@ -349,30 +349,73 @@
       transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease, background 140ms ease;
     }
      */
-    .projicon{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    
-      width:22px;
-      height:22px;
-      border-radius:50%;
-    
-      background: rgba(255,255,255,0.18);
-      margin-right:6px;
-    
-      font-size:1.0em;
-      line-height:1;
-    }
-
-    .projlink:hover{
+    /* .projlink:hover{
       text-decoration:none;
       transform: translateY(-1px);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.22),
         0 10px 22px rgba(0,86,162,0.36);
       filter:none;
+    } */
+
+    .projlink{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    
+      padding:11px 20px;
+      border-radius:999px;
+    
+      /* ✅ 살짝 투명 + 디자인 */
+      background: linear-gradient(
+        180deg,
+        rgba(10, 99, 181, 0.92) 0%,
+        rgba(0, 86, 162, 0.88) 55%,
+        rgba(0, 74, 140, 0.90) 100%
+      );
+    
+      color:#ffffff !important;
+    
+      /* ✅ 글씨 조정 */
+      font-size:16px;          /* ← 이전보다 살짝 큼 */
+      font-weight:600;         /* ← bold 제거 (semibold) */
+      letter-spacing:-0.005em;
+    
+      text-decoration:none;
+    
+      border:1px solid rgba(255,255,255,0.28);
+    
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        0 6px 16px rgba(0,86,162,0.24);
+    
+      backdrop-filter: saturate(120%);
+      -webkit-backdrop-filter: saturate(120%);
+    
+      transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        filter 140ms ease,
+        background 140ms ease;
     }
+    .projlink:hover{
+      transform: translateY(-1px);
+    
+      background: linear-gradient(
+        180deg,
+        rgba(10, 99, 181, 0.98) 0%,
+        rgba(0, 86, 162, 0.95) 55%,
+        rgba(0, 74, 140, 0.98) 100%
+      );
+    
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.26),
+        0 10px 22px rgba(0,86,162,0.32);
+    
+      filter:none;
+    }
+
     .projlink:active{ transform: translateY(0px) scale(0.99); }
     .projlink:focus-visible{
       outline: 3px solid rgba(255,255,255,0.38);
