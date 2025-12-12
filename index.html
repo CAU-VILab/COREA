@@ -9,6 +9,9 @@
   <!-- TAB ICON (favicon) -->
   <link rel="icon" type="image/png" href="./assets/icons/Taegeuk.png" />
   <link rel="apple-touch-icon" href="./assets/icons/Taegeuk.png" />
+  <!-- Icons: Font Awesome + Academicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.4/css/academicons.min.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,7 +72,14 @@
     header.hero{ text-align:center; }
     header.hero .authors,
     header.hero .link-row{ justify-content:center; }
-
+    
+    .projicon{
+      display:inline-flex;
+      align-items:center;
+      margin-right:8px;
+      font-size:1.05em;
+    }
+    
     /* Top bar (Pantone 2945C) — no neon shadow */
     .topbar{
       position: sticky;
@@ -777,8 +787,17 @@
         <div class="affils"><span><sup>*</sup>Equal Contribution, <sup>†</sup>Co-Corresponding Authors</span></div>
 
         <div class="link-row" aria-label="Project links">
-          <a class="projlink" href="https://www.arxiv.org/abs/2512.07107" target="_blank" rel="noopener">arXiv</a>
-          <a class="projlink" href="https://github.com/VILab-CAU/COREA-arXiv" target="_blank" rel="noopener">Code</a>
+          <!-- <a class="projlink" href="https://www.arxiv.org/abs/2512.07107" target="_blank" rel="noopener">arXiv</a> -->
+          <!-- <a class="projlink" href="https://github.com/VILab-CAU/COREA-arXiv" target="_blank" rel="noopener">Code</a> -->
+          <a class="projlink" href="https://www.arxiv.org/abs/2512.07107" target="_blank" rel="noopener">
+            <span class="projicon" aria-hidden="true"><i class="ai ai-arxiv"></i></span>
+            <span>arXiv</span>
+          </a>
+          
+          <a class="projlink" href="https://github.com/VILab-CAU/COREA-arXiv" target="_blank" rel="noopener">
+            <span class="projicon" aria-hidden="true"><i class="fa-brands fa-github"></i></span>
+            <span>Code</span>
+          </a>
         </div>
       </header>
     </div>
