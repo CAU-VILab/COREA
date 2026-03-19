@@ -879,7 +879,7 @@
       <section class="section card tldr-card" id="tldr">
         <p class="tldr-text">
           <span class="tldr-label">TL;DR :</span>
-          COREA is the first unified framework that jointly learns relightable 3D Gaussians and an SDF via coarse-to-fine 3D-to-3D supervision to improve geometry reconstruction and physically-based relighting.
+          COREA is the first unified three-tasks framework that couples an SDF and relightable 3D Gaussians to jointly support SH-based NVS, surface reconstruction, and inverse PBR.
         </p>
       </section>
 
@@ -902,9 +902,9 @@
         </figure>
 
         <div class="abstract-text">
-          <p>We present the first unified framework that jointly learns relightable 3D Gaussians and a neural Signed Distance Field (SDF) through coarse-to-fine bidirectional 3D-to-3D supervision, enabling accurate geometry reconstruction and physically-based rendering (PBR). While recent 3D Gaussian Splatting (3DGS) works extend beyond novel-view synthesis (NVS) to mesh reconstruction and PBR, existing methods infer 3D properties indirectly from rendered 2D images, yielding coarse meshes and unreliable BRDF and lighting decomposition.</p>
-          <p>To address these limitations, our approach jointly optimizes SDF and 3DGS directly in 3D space. Depth-guided SDF Alignment (DSA) uses Gaussian depth maps to anchor SDF rays and refine SDF normals via pixel-wise depth gradients. Normal-guided Gaussian Alignment (NGA) projects Gaussians onto the SDF surface, supervises Gaussian normals with SDF normals, and applies normal-aware densification to capture fine-scale geometry. To prevent excessive Gaussian splitting during normal-aware densification, we introduce Dual-Density Control (DDC) using both image and geometry gradient cues, improving memory.</p>
-          <p>The precisely aligned geometry supplies accurate normals to support differentiable PBR, enabling faithful BRDF–lighting decomposition. Experiments on standard benchmarks demonstrate superior performance in NVS, mesh reconstruction, and PBR. The code and project page will be publicly released.</p>
+          <p>We present the first unified three-tasks framework that couples an SDF and relightable 3D Gaussians (3DGS) to jointly support SH-based novel-view synthesis (NVS), surface reconstruction, and inverse physically-based rendering (inverse PBR). While recent relightable 3DGS methods have progressed, inverse PBR remains bottlenecked by normal estimation, as the discrete nature of 3DGS often yields oversmoothed and unstable normals.</p>
+          <p>To address this limitation, COREA couples the complementary geometric properties of an SDF and relightable 3DGS on a shared underlying surface, where geometry-constrained relightable 3DGS provides reliable depth signals to anchor SDF geometry and the continuous SDF normal field provides spatially consistent supervision for Gaussian normal learning. We couple these signals through depth-guided alignment and normal supervision with normal-aware densification, and introduce Dual-Density Control to regulate densification by balancing photometric and geometric gradients for stable, memory-efficient training.</p>
+          <p>Experiments on standard benchmarks show that COREA is the only framework that supports all three tasks, achieving competitive performance overall, with particularly superior results in inverse PBR. The code and project page will be publicly released.</p>
         </div>
       </section>
 
@@ -919,12 +919,13 @@
         </figure>
 
         <div class="abstract-text">
-          <p>Our method jointly trains relightable 3D Gaussians and a SDF via coarse-to-fine bidirectional 3D-to-3D supervision.
-          The first stage, Bidirectional 3D-to-3D Supervision, consists of two complementary steps:
-          (i) DSA aligns the SDF to the 3DGS by leveraging depth rendered from Gaussians and matching SDF normals to pixel-wise depth gradients of 3DGS;
-          (ii) NGA aligns 3DGS to the SDF by matching Gaussian depth to the SDF depth and supervising Gaussian normals with SDF normals.
-          To prevent excessive Gaussian splitting during NGA, the DDC module suppresses unnecessary densification for efficient geometry refinement.
-          In the second stage, Inverse PBR is performed using the refined geometry to decompose BRDF and lighting and enable relighting under novel illumination conditions.</p>
+          <p>Our method jointly trains an SDF and relightable 3D Gaussians via geometric coupling on a shared underlying surface, 
+            combining reliable depth signals from geometry-constrained relightable 3DGS with the continuous SDF normal field. 
+            The coupling uses two omplementary modules: (i) DSA aligns the SDF to 3DGS via depth-guided ray sampling and matches 
+            SDF normals to pixel-wise depth gradients from the 3DGS depth map. (ii) NGA guides Gaussians toward the SDF depth surface 
+            via depth consistency and aligns Gaussian normals with the continuous SDF normal field, stabilizing normal learning for 
+            discrete Gaussians. DDC regulates normal-aware densification using photometric and geometric gradients to suppress redundant splitting. 
+            In the second stage, Inverse PBR optimizes BRDF and lighting on the learned geometry, enabling accurate BRDF-lighting decomposition and faithful relighting under novel illumination.</p>
         </div>
 
         <div class="subcard" id="framework-extra">
@@ -942,8 +943,9 @@
             <!-- 오른쪽: 텍스트 -->
             <div class="ddc-col ddc-col-text">
               <p class="framework-ddc-text">
-                In the Dual-Density Control framework, Gaussians with accumulated gradients exceeding the threshold are
-                shown in red, while others remain blue. Red Gaussians combine image- and normal-driven splitting matrices into the total matrix <i>S</i><sub>total</sub>, and are split into green ones only when &lambda;<sub>min</sub>(<i>S</i><sub>total</sub>) &lt; 0 and such splitting reduces the overall loss.
+                Gaussians whose accumulated gradients exceed the densification threshold are marked in red, while others remain blue. 
+                For candidates, DDC combines splitting matrices from photometric and geometric gradients into <i>S</i><sub>total</sub>. 
+                A candidate is split into green Gaussians only if &lambda;<sub>min</sub>(<i>S</i><sub>total</sub>) &lt; 0, indicating a descent direction that reduces the overall loss.
               </p>
             </div>
           </div>
@@ -957,7 +959,7 @@
         </div>
         <div class="embed-actions">
           <p class="blurb">
-            We evaluate novel-view synthesis (NVS), mesh reconstruction, and physically-based rendering (PBR) using the DTU and Tanks&Temples datasets.
+            We evaluate SH-based NVS, Surface Reconstruction, and Inverse PBR using the DTU and Tanks&Temples datasets.
             N/S denotes methods that do not support the corresponding task, and OOM indicates evaluation failures caused by memory limitations.
             The best, second-best, and third-best results are highlighted in red, yellow, and purple, respectively.
           </p>
@@ -973,10 +975,10 @@
               <img src="./assets/Qualitative_NVS.png" alt="Qualitative results (NVS)" />
             </div>
             <p class="blurb">
-              We compare COREA with recent Gaussian-based methods on three tasks: NVS, PBR, and Mesh Reconstruction. All results are rendered on a white background for consistent visual comparison.
+              We compare COREA with recent Gaussian-based methods on three tasks: SH-based NVS, Surface Reconstruction, and Inverse PBR. All results are rendered on a white background for consistent visual comparison.
               Artifacts such as black background patches or dark speckles observed in some baselines stem from excessive Gaussian opacity; by contrast, COREA produces clean, artifact-free renderings on white backgrounds.
               Our method also provides results for all three tasks, whereas others show N/S (Not Supported) or OOM (Out of Memory) in several cases.
-              Overall, COREA yields sharper novel views, more faithful BRDF and lighting decomposition, and finer geometric details through coarse-to-fine bidirectional 3D-to-3D supervision.
+              Overall, COREA yields sharper novel views, finer geometric details through coarse-to-fine bidirectional 3D-to-3D supervision, and more faithful Inverse PBR.
             </p>
           </div>
 
@@ -986,7 +988,7 @@
             </div>
             <p class="blurb">
               We compare COREA with recent relightable Gaussian-based methods under varying illumination conditions.
-              The first row shows PBR renderings under the original lighting setup, while the remaining rows illustrate relighting results under directional lights and various HDR environment maps.
+              The first row shows Inverse PBR renderings under the original lighting setup, while the remaining rows illustrate relighting results under directional lights and various HDR environment maps.
               Compared to previous methods that exhibit black background artifacts or unstable reflectance under varying illumination,
               COREA maintains consistent shading, clean appearance, and accurate reflectance reconstruction across all lighting conditions, demonstrating robust BRDF and geometry alignment.
             </p>
