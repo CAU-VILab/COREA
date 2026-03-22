@@ -269,26 +269,25 @@
       text-align:center;
     }
 
-    /* CoReA gradient letters */
-    .corea-accent{
+    /* CoREA letters share one continuous gradient */
+    .corea-letter{
+      display:inline-block;
+      font: inherit;
       font-weight: 900;
+      line-height: inherit;
+      letter-spacing: inherit;
+    
       background-image: var(--corea-grad);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-position: 0 0;
+    
       -webkit-background-clip: text;
       background-clip: text;
+      -webkit-text-fill-color: transparent;
       color: transparent;
+    
       text-shadow: none;
-    }
-    .corea-accent--co{
-      background-size: 300% 100%;
-      background-position: 0% 50%;
-    }
-    .corea-accent--re{
-      background-size: 300% 100%;
-      background-position: 50% 50%;
-    }
-    .corea-accent--a{
-      background-size: 300% 100%;
-      background-position: 100% 50%;
     }
 
     .sub-accent{
@@ -1222,6 +1221,41 @@
       initThumbnailStillPreviews();
     });
   })();
+  </script>
+  <script>
+    function syncCoreaGradient() {
+      const title = document.getElementById('corea-subtitle');
+      if (!title) return;
+  
+      const letters = Array.from(title.querySelectorAll('.corea-letter'));
+      if (!letters.length) return;
+  
+      const rects = letters.map(el => el.getBoundingClientRect());
+  
+      const minLeft = Math.min(...rects.map(r => r.left));
+      const minTop = Math.min(...rects.map(r => r.top));
+      const maxRight = Math.max(...rects.map(r => r.right));
+      const maxBottom = Math.max(...rects.map(r => r.bottom));
+  
+      const gradientWidth = maxRight - minLeft;
+      const gradientHeight = maxBottom - minTop;
+  
+      letters.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const x = rect.left - minLeft;
+        const y = rect.top - minTop;
+  
+        el.style.backgroundSize = `${gradientWidth}px ${gradientHeight}px`;
+        el.style.backgroundPosition = `-${x}px -${y}px`;
+      });
+    }
+  
+    window.addEventListener('load', syncCoreaGradient);
+    window.addEventListener('resize', syncCoreaGradient);
+  
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(syncCoreaGradient);
+    }
   </script>
 </body>
 </html>
